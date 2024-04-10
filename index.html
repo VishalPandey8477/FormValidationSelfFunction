@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>form</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+</head>
+
+<body style="background-image: url(assets/images/formbackground.jpg); background-size: cover;">
+
+  <div class=" m-3 row justify-content-center  p-3  ">
+
+    <div class=" border p-3" style="  box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+      <div class="row justify-content-center">
+        <h1 style="font-family: cursive" class="text-light">Form Validation Self</h1>
+      </div>
+
+      <form action="" id="myForm">
+
+
+
+        <div class="form-group">
+          <label for="exampleInputUser" class="text-light">Username</label>
+          <input type="text " class="form-control" id="userName" placeholder="Username" />
+          <span id="userNameError" class="text-light font-weight-bold"></span>
+
+        </div>
+
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="text-light">Email address</label>
+          <input type="email" class="form-control shadow" id="emailAddress" aria-describedby="emailHelp"
+            placeholder="Enter email" />
+          <span id="userEmailError" class="text-light font-weight-bold"></span>
+        </div>
+
+
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1" class="text-light">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" />
+            <span id="userPasswordError" class="text-light font-weight-bold"></span>
+
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword2" class="text-light"> Confirm Password</label>
+            <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" />
+            <span id="userConfirmPasswordError" class="text-light font-weight-bold"></span>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="inputAddress" class="text-light">Mobile Number</label>
+          <input type="text" class="form-control" id="inputNumber" placeholder="789XXXXXX">
+          <span id="userNumberError" class="text-light font-weight-bold"></span>
+        </div>
+
+        <div class="form-group">
+          <label class=" font-weight-bold pr-3 my-3 text-light" >Gender </label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Male">
+            <label class="form-check-label text-light" for="inlineRadio1" >Male</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
+            <label class="form-check-label text-light" for="inlineRadio2">Female</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Other">
+            <label class="form-check-label text-light" for="inlineRadio3">Other</label>
+          </div>
+          <span id="userGenderError" class="text-light font-weight-bold"></span>
+
+
+        </div>
+
+        <div class="form-group">
+          <label for="selectCounty font-weight-bold  " class="text-light">Select Country : </label>
+          <select class="form-select" id="selectCounty">
+            <option selected value="">Select Country</option>
+            <option value="India">India</option>
+            <option value="China">China</option>
+            <option value="Nepal">Nepal</option>
+          </select>
+          <span id="userCountryError" class="text-light font-weight-bold"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" onclick="passValue(event);">Submit</button>
+
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+<script>
+  const inputFile = document.getElementById("inputFile");
+  inputFile.addEventListener('change', () => {
+    const fr = new FileReader();
+    fr.readAsDataURL(inputFile.files[0]);
+
+    fr.addEventListener('load', () => {
+      const url = fr.result;
+      console.log(url)
+      localStorage.setItem('imageUrl', url);
+    })
+
+  })
+
+
+  function passValue(e) {
+    e.preventDefault();
+    const userName = document.getElementById("userName").value;
+    const userEmail = document.getElementById("emailAddress").value;
+    const userPass = document.getElementById("password").value;
+    const userConfirmPass = document.getElementById("confirmpassword").value;
+    const mobileNumber = (document.getElementById("inputNumber").value);
+
+    //--------------------------------------- User Name Test using Self Function------------------------------------------
+
+    if (userName == "") {
+      document.getElementById("userNameError").innerHTML = "** It Can be Only Alpha Numeric"
+      return false;
+    }
+
+    for (var i = 0; i < userName.length; i++) {
+      var char1 = userName.charAt(i);
+      var cc = char1.charCodeAt(0);
+
+      if ((cc > 47 && cc < 58) || (cc > 64 && cc < 91) || (cc > 96 && cc < 123)) {
+        document.getElementById("userNameError").innerHTML = ""
+      } else {
+        document.getElementById("userNameError").innerHTML = "** It Can be Only Alpha Numeric"
+        return false;
+      }
+    }
+
+
+
+
+
+    // ---------------------------------------------User Email Test Using Self Function-----------------------------------
+
+
+    if (userEmail == "") {
+      document.getElementById("userEmailError").innerHTML = "** Enter Something"
+      return false
+    }
+    var searchAtTheRate = 0;
+    if ((userEmail.search("@")) > -1) {
+      searchAtTheRate = 1;
+    }
+    if (searchAtTheRate > 0) {
+      document.getElementById("userEmailError").innerHTML = ""
+    }
+    else {
+      document.getElementById("userEmailError").innerHTML = "@ Missing"
+      return false
+    }
+
+    var searchDot = 0;
+
+    if ((userEmail.search(".")) > -1) {
+      searchDot = 1;
+    }
+    if (searchDot > 0) {
+      document.getElementById("userEmailError").innerHTML = ""
+    }
+    else {
+      document.getElementById("userEmailError").innerHTML = "@ Missing"
+      return false
+    }
+
+
+
+
+    //-----------------------------------------------------User Password Test Using Self Function---------------------------------
+
+    var small = 0
+    var cap = 0
+    var num = 0
+    var sym = 0
+    for (var i = 0; i < userPass.length; i++) {
+      var char1 = userPass.charAt(i);
+      var cc = char1.charCodeAt(0);
+
+      if ((cc > 20 && cc < 48) || (cc > 57 && cc < 65)) {
+        sym++
+      }
+
+      if (cc > 47 && cc < 58) {
+        num++
+      }
+
+      if (cc > 64 && cc < 91) {
+        cap++
+      }
+
+      if (cc > 96 && cc < 123) {
+        small++
+      }
+    }
+
+    if ((sym == 0) || (num == 0) || (cap == 0) || (small == 0)) {
+      document.getElementById("userPasswordError").innerHTML = "** Enter Again"
+      return false;
+    }
+    else {
+      document.getElementById("userPasswordError").innerHTML = ""
+    }
+
+    if (userPass.length < 8) {
+      document.getElementById("userPasswordError").innerHTML = "** Short Password"
+      return false;
+    }
+    else {
+      document.getElementById("userPasswordError").innerHTML = ""
+    }
+
+    // -------------------------------------------Password Confirm check ------------------------------
+
+
+    if (userPass == userConfirmPass) {
+      document.getElementById("userConfirmPasswordError").innerHTML = ""
+
+    }
+    else {
+      document.getElementById("userConfirmPasswordError").innerHTML = "** Not Match"
+      return false;
+    }
+
+
+
+    // --------------------------------------------------For Mobile NUmber -----------------------------------
+
+    if (!(mobileNumber[0] > 6)) {
+      document.getElementById("userNumberError").innerHTML = "** Should be IST Number"
+      return false;
+    }
+    else {
+      document.getElementById("userNumberError").innerHTML = ""
+    }
+
+    if (mobileNumber.length < 10) {
+      document.getElementById("userNumberError").innerHTML = "** Digits Are Missing"
+      return false;
+    }
+    else {
+      document.getElementById("userNumberError").innerHTML = ""
+    }
+
+
+    //----------------------------------------- Radio Button--------------------------------
+
+    var rad1 = document.getElementById("inlineRadio1");
+    var rad2 = document.getElementById("inlineRadio2");
+    var rad3 = document.getElementById("inlineRadio3");
+
+    if (rad1.checked == true) {
+      localStorage.setItem('gender', "Male")
+
+    }
+    else if (rad2.checked == true) {
+      localStorage.setItem('gender', "Female")
+
+    }
+    else if (rad3.checked == true) {
+      localStorage.setItem('gender', "Other")
+
+    }
+    else {
+      document.getElementById("userGenderError").innerHTML = "** Select Gender"
+      return false
+    }
+
+
+    // -------------------------------------For the Select Country---------------------
+
+    const country = document.getElementById("selectCounty").value;
+    if (country == "") {
+      document.getElementById("userCountryError").innerHTML = "** Select Country"
+      return false
+
+    }
+
+    location.href = "result.html"
+    localStorage.setItem('textvalue', userName);
+    localStorage.setItem('email', userEmail);
+    localStorage.setItem('mobilenumber', mobileNumber);
+    localStorage.setItem('country', country);
+    document.getElementById("myForm").reset();
+
+  }
+</script>
+
+</html>
